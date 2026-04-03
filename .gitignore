@@ -1,0 +1,10 @@
+node_modules/.bin/jest
+/node_modules
+.env
+/node_modules
+/node_modules
+/node_modules
+dist/admin/auth-provider.d.ts
+/dist
+/dist
+/dist
