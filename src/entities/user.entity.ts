@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column,BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from 'typeorm';
 
 @Entity({ name: 'user' })
 export class User extends BaseEntity {
@@ -13,4 +13,13 @@ export class User extends BaseEntity {
 
   @Column()
   name: string;
+
+  @Column({ nullable: true })
+  phone: string;
+
+  @Column({ nullable: true })
+  role: string;
+
+  @Column({ default: 'active' })
+  status: string;
 }

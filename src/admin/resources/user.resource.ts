@@ -1,12 +1,51 @@
 import { ResourceWithOptions } from 'adminjs';
+import bcrypt from 'bcryptjs';
 import { User } from '../../entities/user.entity.js';
 
 export const UserResource: ResourceWithOptions = {
   resource: User,
   options: {
     navigation: { icon: 'User' },
-    listProperties: ['id', 'name', 'email'],
+    listProperties: ['id', 'name', 'email', 'phone', 'role', 'status'],
     actions: {
+      new: {
+        before: async (request) => {
+          if (request.payload?.password) {
+            request.payload.password = await bcrypt.hash(request.payload.password, 10);
+          }
+          return request;
+        },
+        after: async (response) => {
+          if (response.record?.params) {
+            response.record.params.password = '';
+          }
+          return response;
+        },
+      },
+      edit: {
+        before: async (request) => {
+          if (request.payload?.password) {
+            request.payload.password = await bcrypt.hash(request.payload.password, 10);
+          } else {
+            delete request.payload.password;
+          }
+          return request;
+        },
+        after: async (response) => {
+          if (response.record?.params) {
+            response.record.params.password = '';
+          }
+          return response;
+        },
+      },
+      show: {
+        after: async (response) => {
+          if (response.record?.params) {
+            response.record.params.password = '';
+          }
+          return response;
+        },
+      },
       sendWelcomeEmail: {
         actionType: 'record',
         icon: 'Email',
@@ -25,7 +64,11 @@ export const UserResource: ResourceWithOptions = {
     },
     properties: {
       password: {
+        type: 'password',
         isVisible: { list: false, edit: true, filter: false, show: false },
+      },
+      id: {
+        isVisible: { show: false, list: true, edit: false, filter: true },
       },
     },
   },
