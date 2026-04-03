@@ -10,4 +10,10 @@ export class Contact extends BaseEntity {
 
   @Column()
   address: string;
+
+  @Column({ nullable: true })
+  email: string;
+
+  @Column({ nullable: true })
+  city: string;
 }
