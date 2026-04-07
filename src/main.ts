@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { NestFactory } from '@nestjs/core';
 import AdminJS from 'adminjs';
 import * as AdminJSTypeORM from '@adminjs/typeorm';
