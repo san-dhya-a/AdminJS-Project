@@ -7,12 +7,12 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
   const pageType = record.params.pageType || 'faq';
   
   // Parse existing content
-  let initialValue = record.params[property.name] || { title: '', items: [] };
+  let initialValue = record.params[property.name] || { items: [] };
   if (typeof initialValue === 'string') {
     try {
       initialValue = JSON.parse(initialValue);
     } catch (e) {
-      initialValue = { title: '', items: [] };
+      initialValue = { items: [] };
     }
   }
   
@@ -23,12 +23,13 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
     onChange(property.name, newData);
   };
 
-  const handleTitleChange = (val: string) => {
-    updateContent({ ...data, title: val });
+  const addItem = () => {
+    const newItems = [...(data.items || []), { subtitle: '', description: '', showTitle: false }];
+    updateContent({ ...data, items: newItems });
   };
 
-  const addItem = () => {
-    const newItems = [...(data.items || []), { title: '', subtitle: '', description: '' }];
+  const addTitleSection = () => {
+    const newItems = [...(data.items || []), { title: '', subtitle: '', description: '', showTitle: true }];
     updateContent({ ...data, items: newItems });
   };
 
@@ -43,7 +44,6 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
     updateContent({ ...data, items: newItems });
   };
 
-  // Only render if a pageType is selected
   if (!record.params.pageType) {
     return null;
   }
@@ -54,20 +54,6 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
   return (
     <Box variant="white" p="xxl" border="1px solid #ddd" borderRadius="lg" mt="xl" boxShadow="card">
       
-      {/* FAQ Mode - Shared Title (Only shows if items exist) */}
-      {isFAQ && hasItems && (
-        <FormGroup>
-          <Label size="lg">Title</Label>
-          <Input
-            value={data.title || ''}
-            onChange={(e) => handleTitleChange(e.target.value)}
-            placeholder="Enter the main FAQ title"
-            width={1}
-            size="lg"
-          />
-        </FormGroup>
-      )}
-
       {/* Dynamic Blocks */}
       <Box mt="lg">
         {data.items && data.items.map((item: any, index: number) => (
@@ -84,8 +70,8 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
               </Button>
             </Box>
             
-            {/* Title - Repeated for Regulamento, Shared for FAQ */}
-            {!isFAQ && (
+            {/* Title - Repeated for Regulamento, or FAQ "Add Title" sections */}
+            {(!isFAQ || item.showTitle) && (
               <FormGroup>
                 <Label>Title</Label>
                 <Input
@@ -124,19 +110,33 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
         ))}
       </Box>
 
-      {/* Action Button */}
-      <Box mt="xl" flex justifyContent="center" pt={hasItems ? 'xl' : 'none'}>
+      {/* Action Buttons */}
+      <Box mt="xl" flex flexDirection="row" justifyContent="center" pt={hasItems ? 'xl' : 'none'}>
         <Button 
           type="button" 
           onClick={addItem} 
-          variant="primary" 
+          variant="outline" 
           borderRadius="full"
           display="flex"
           alignItems="center"
+          mr="md"
         >
           <Icon icon="Plus" mr="xs" /> 
           {isFAQ ? 'Add FAQ Items' : 'Add Regulamento Items'}
         </Button>
+
+        {isFAQ && (
+          <Button 
+            type="button" 
+            onClick={addTitleSection} 
+            variant="primary" 
+            borderRadius="full"
+            display="flex"
+            alignItems="center"
+          >
+            <Icon icon="Plus" mr="xs" /> Add Title
+          </Button>
+        )}
       </Box>
     </Box>
   );
