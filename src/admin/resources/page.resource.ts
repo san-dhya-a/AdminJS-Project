@@ -1,5 +1,6 @@
 import { ResourceWithOptions } from 'adminjs';
 import { Page } from '../../entities/page.entity.js';
+import { Components } from '../component-loader.js';
 
 export const PageResource: ResourceWithOptions = {
   resource: Page,
@@ -20,39 +21,30 @@ export const PageResource: ResourceWithOptions = {
         ],
       } as any,
       
-      // Top-level fields (Hidden until a Page Type is selected)
+      // Top-level fields (Visible for Regulamento, hidden for FAQ)
       title: { 
-        isVisible: ({ record }) => !!record?.params?.pageType,
+        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
         label: 'Page Title' 
       } as any,
       subtitle: { 
-        isVisible: ({ record }) => !!record?.params?.pageType,
+        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
         label: 'Page Subtitle' 
       } as any,
       description: { 
         type: 'textarea', 
-        isVisible: ({ record }) => !!record?.params?.pageType,
+        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
         label: 'Page Description' 
       } as any,
       
-      // Unified Dynamic List (Hidden until a Page Type is selected)
+      // Standalone FAQ content builder
       content: {
-        type: 'mixed',
-        isArray: true,
-        label: 'Dynamic Entries',
-        isVisible: ({ record }) => !!record?.params?.pageType,
-      } as any,
-      'content.title': {
-        type: 'string',
-        label: 'Entry Title',
-      } as any,
-      'content.subtitle': {
-        type: 'string',
-        label: 'Entry Subtitle',
-      } as any,
-      'content.description': {
-        type: 'textarea',
-        label: 'Entry Description',
+        type: 'json',
+        label: 'FAQ Content List',
+        isVisible: ({ record }) => record?.params?.pageType === 'faq',
+        components: {
+          edit: Components.FAQBuilder,
+          show: Components.FAQBuilder,
+        },
       } as any,
     },
   },
