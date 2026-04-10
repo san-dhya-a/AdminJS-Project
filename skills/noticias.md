@@ -20,4 +20,4 @@ The Notícias module manages the application's card-based feed, blog posts, and 
 - **Category**: A dynamic dropdown selection fetched from the **Categorias** resource.
 
 ## Relationship Implementation
-The `Noticias` entity holds a `categoryId` foreign key, which links to the `NoticiasCategory` entity. AdminJS automatically renders this as a searchable dropdown in the edit view.
+The `Noticias` entity holds a `categoryId` foreign key, which links to the `NoticiasCategory` entity. AdminJS automatically renders this as a searchable dropdown in the edit view.     
