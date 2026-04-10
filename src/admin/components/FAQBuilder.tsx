@@ -1,26 +1,64 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Box, Button, FormGroup, Input, Label, TextArea, Icon, Text } from '@adminjs/design-system';
 import { BasePropertyProps } from 'adminjs';
 
 const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
-  const { property, record, onChange } = props;
+  const { property, record, onChange, resource } = props;
+  const action = (props as any).action;
   const pageType = record.params.pageType || 'faq';
   
-  // Parse existing content
-  let initialValue = record.params[property.name] || { items: [] };
-  if (typeof initialValue === 'string') {
-    try {
-      initialValue = JSON.parse(initialValue);
-    } catch (e) {
-      initialValue = { items: [] };
+  // Detect if we are in "Show" (read-only) mode
+  const isShow = action?.name === 'show' || !onChange;
+
+  // Function to robustly extract data from record.params (handles flattened keys)
+  const getInitialData = () => {
+    // 1. Try direct access
+    const directValue = record.params[property.name];
+    if (directValue) {
+      if (typeof directValue === 'object' && directValue.items) return directValue;
+      if (typeof directValue === 'string') {
+        try {
+          const parsed = JSON.parse(directValue);
+          if (parsed && parsed.items) return parsed;
+        } catch (e) {
+          // Fall through to flattened check
+        }
+      }
     }
-  }
-  
-  const [data, setData] = useState(initialValue);
+
+    // 2. Try flattened access (e.g., content.items.0.title)
+    const items = [];
+    let i = 0;
+    while (
+      record.params[`${property.name}.items.${i}.subtitle`] !== undefined || 
+      record.params[`${property.name}.items.${i}.title`] !== undefined ||
+      record.params[`${property.name}.items.${i}.description`] !== undefined
+    ) {
+      const showTitleVal = record.params[`${property.name}.items.${i}.showTitle`];
+      items.push({
+        title: record.params[`${property.name}.items.${i}.title`] || '',
+        subtitle: record.params[`${property.name}.items.${i}.subtitle`] || '',
+        description: record.params[`${property.name}.items.${i}.description`] || '',
+        showTitle: showTitleVal === true || showTitleVal === 'true',
+      });
+      i++;
+    }
+
+    return items.length > 0 ? { items } : { items: [] };
+  };
+
+  const [data, setData] = useState(getInitialData());
+
+  // Keep state in sync if record changes (important for Show view transition)
+  useEffect(() => {
+    setData(getInitialData());
+  }, [record.params]);
 
   const updateContent = (newData: any) => {
     setData(newData);
-    onChange(property.name, newData);
+    if (onChange) {
+      onChange(property.name, newData);
+    }
   };
 
   const addItem = () => {
@@ -51,10 +89,40 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
   const isFAQ = pageType === 'faq';
   const hasItems = data.items && data.items.length > 0;
 
+  if (isShow) {
+    return (
+      <Box variant="white" p="xxl" border="1px solid #ddd" borderRadius="lg" mt="xl" boxShadow="card">
+        {hasItems ? (
+          <Box>
+            {data.items.map((item: any, index: number) => (
+              <Box key={index} mb="xl" pb="lg" borderBottom={index < data.items.length - 1 ? "1px solid #eee" : "none"}>
+                {(!isFAQ || index === 0 || item.showTitle) && item.title && (
+                  <Text variant="lg" fontWeight="bold" mb="sm" color="primary100">
+                    {item.title}
+                  </Text>
+                )}
+                {isFAQ && item.subtitle && (
+                  <Text variant="md" fontWeight="semibold" mb="xs" color="grey80">
+                    {item.subtitle}
+                  </Text>
+                )}
+                {item.description && (
+                  <Text variant="sm" color="grey60">
+                    {item.description}
+                  </Text>
+                )}
+              </Box>
+            ))}
+          </Box>
+        ) : (
+          <Text italic color="grey40">No entries added yet.</Text>
+        )}
+      </Box>
+    );
+  }
+
   return (
     <Box variant="white" p="xxl" border="1px solid #ddd" borderRadius="lg" mt="xl" boxShadow="card">
-      
-      {/* Dynamic Blocks */}
       <Box mt="lg">
         {data.items && data.items.map((item: any, index: number) => (
           <Box key={index} mb="xl" position="relative" pt="lg">
@@ -70,7 +138,6 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
               </Button>
             </Box>
             
-            {/* Title - Repeated for Regulamento, first FAQ item, or FAQ "Add Title" sections */}
             {(!isFAQ || index === 0 || item.showTitle) && (
               <FormGroup>
                 <Label>Title</Label>
@@ -83,7 +150,6 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
               </FormGroup>
             )}
 
-            {/* Subtitle - Only for FAQ */}
             {isFAQ && (
               <FormGroup>
                 <Label>Subtitle</Label>
@@ -110,7 +176,6 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
         ))}
       </Box>
 
-      {/* Action Buttons */}
       <Box mt="xl" flex flexDirection="row" justifyContent="center" pt={hasItems ? 'xl' : 'none'}>
         <Button 
           type="button" 

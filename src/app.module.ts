@@ -12,12 +12,15 @@ import options from './admin/options.js';
 import { User } from './entities/user.entity.js';
 import { Contact } from './entities/contact.entity.js';
 import { Page } from './entities/page.entity.js';
+import { Noticias } from './entities/noticias.entity.js';
+import { PageModule } from './modules/page/page.module.js';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
       envFilePath: '.env',
     }),
+    PageModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST || 'localhost',
@@ -25,7 +28,7 @@ import { Page } from './entities/page.entity.js';
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || 'mareeswari',
       database: process.env.DATABASE_NAME || 'Login_system',
-      entities: [User, Contact, Page],
+      entities: [User, Contact, Page, Noticias],
       synchronize: false,
     }),
     AdminModule.createAdminAsync({

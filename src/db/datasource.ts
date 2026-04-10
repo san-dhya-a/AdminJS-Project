@@ -2,6 +2,7 @@ import { DataSource } from 'typeorm';
 import { User } from '../entities/user.entity.js';
 import { Contact } from '../entities/contact.entity.js';
 import { Page } from '../entities/page.entity.js';
+import { Noticias } from '../entities/noticias.entity.js';
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -13,7 +14,7 @@ export const AppDataSource = new DataSource({
   username: process.env.DATABASE_USER || 'root',
   password: process.env.DATABASE_PASSWORD || 'mareeswari',
   database: process.env.DATABASE_NAME || 'Login_system',
-  entities: [User, Contact, Page],
+  entities: [User, Contact, Page, Noticias],
   // migrations: ['src/db/migrations/*.ts'],
   migrationsTableName: 'migrations',
   synchronize: false, // DO NOT CHANGE THE DATABASE
