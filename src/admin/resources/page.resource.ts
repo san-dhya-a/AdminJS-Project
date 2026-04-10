@@ -21,26 +21,26 @@ export const PageResource: ResourceWithOptions = {
         ],
       } as any,
       
-      // Top-level fields (Visible for Regulamento, hidden for FAQ)
+      // Top-level fields (Hidden for both FAQ and Regulamento since we use the builder)
       title: { 
-        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
+        isVisible: ({ record }) => !record?.params?.pageType,
         label: 'Page Title' 
       } as any,
       subtitle: { 
-        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
+        isVisible: ({ record }) => !record?.params?.pageType,
         label: 'Page Subtitle' 
       } as any,
       description: { 
         type: 'textarea', 
-        isVisible: ({ record }) => record?.params?.pageType !== 'faq',
+        isVisible: ({ record }) => !record?.params?.pageType,
         label: 'Page Description' 
       } as any,
       
-      // Standalone FAQ content builder
+      // Standalone Content Builder (FAQ & Regulamento)
       content: {
         type: 'json',
-        label: 'FAQ Content List',
-        isVisible: ({ record }) => record?.params?.pageType === 'faq',
+        label: 'Dynamic Content',
+        isVisible: ({ record }) => !!record?.params?.pageType,
         components: {
           edit: Components.FAQBuilder,
           show: Components.FAQBuilder,
