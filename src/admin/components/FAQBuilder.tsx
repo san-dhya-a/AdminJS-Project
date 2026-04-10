@@ -70,8 +70,8 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
               </Button>
             </Box>
             
-            {/* Title - Repeated for Regulamento, or FAQ "Add Title" sections */}
-            {(!isFAQ || item.showTitle) && (
+            {/* Title - Repeated for Regulamento, first FAQ item, or FAQ "Add Title" sections */}
+            {(!isFAQ || index === 0 || item.showTitle) && (
               <FormGroup>
                 <Label>Title</Label>
                 <Input

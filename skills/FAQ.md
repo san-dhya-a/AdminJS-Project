@@ -24,7 +24,8 @@ The FAQ module allows administrators to create a dynamic list of questions and a
 The FAQ feature is powered by a custom React component (`FAQBuilder.tsx`) that manages its own internal state and supports two types of additions:
 
 *   **"Add FAQ Items" Button**: 
-    *   Adds an entry containing only **Subtitle** (Question) and **Description** (Answer).
+    *   **First Click**: Automatically shows the **Title**, **Subtitle**, and **Description** fields (index 0).
+    *   **Subsequent Clicks**: Adds only **Subtitle** and **Description** fields.
 *   **"Add Title" Button** (New):
     *   Adds a comprehensive entry containing **Title**, **Subtitle**, and **Description**.
     *   This allows for multiple titled groups within a single FAQ section.
