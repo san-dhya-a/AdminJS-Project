@@ -12,9 +12,9 @@ export const PageResource: ResourceWithOptions = {
     editProperties: ['title', 'subtitle', 'description', 'pageType', 'content'],
     filterProperties: ['title', 'pageType'],
     properties: {
-      id: { isVisible: { list: true, show: true, edit: false, filter: false } },
+      id: { isVisible: { list: true, show: false, edit: false, filter: false } },
       pageType: {
-        isVisible: true,
+        isVisible: { list: true, show: false, edit: true, filter: true },
         availableValues: [
           { value: 'faq', label: 'FAQ' },
           { value: 'regulamento', label: 'Regulamento' },
@@ -23,16 +23,31 @@ export const PageResource: ResourceWithOptions = {
       
       // Top-level fields (Hidden for both FAQ and Regulamento since we use the builder)
       title: { 
-        isVisible: ({ record }) => !record?.params?.pageType,
+        isVisible: { 
+          list: true, 
+          edit: ({ record }) => !record?.params?.pageType,
+          show: ({ record }) => !record?.params?.pageType,
+          filter: true 
+        },
         label: 'Page Title' 
       } as any,
       subtitle: { 
-        isVisible: ({ record }) => !record?.params?.pageType,
+        isVisible: { 
+          list: true, 
+          edit: ({ record }) => !record?.params?.pageType,
+          show: ({ record }) => !record?.params?.pageType,
+          filter: true 
+        },
         label: 'Page Subtitle' 
       } as any,
       description: { 
         type: 'textarea', 
-        isVisible: ({ record }) => !record?.params?.pageType,
+        isVisible: { 
+          list: false, 
+          edit: ({ record }) => !record?.params?.pageType,
+          show: ({ record }) => !record?.params?.pageType,
+          filter: false 
+        },
         label: 'Page Description' 
       } as any,
       

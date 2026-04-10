@@ -4,6 +4,7 @@ import { UserResource } from './resources/user.resource.js';
 import { ContactResource } from './resources/contact.resource.js';
 import { PageResource } from './resources/page.resource.js';
 import { NoticiasResource } from './resources/noticias.resource.js';
+import { MissionResource } from './resources/mission.resource.js';
 
 const options: AdminJSOptions = {
   componentLoader,
@@ -13,6 +14,7 @@ const options: AdminJSOptions = {
     ContactResource,
     PageResource,
     NoticiasResource,
+    MissionResource,
   ],
   databases: [],
 };
