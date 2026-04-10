@@ -5,18 +5,15 @@ import { Components } from '../component-loader.js';
 export const NoticiasResource: ResourceWithOptions = {
   resource: Noticias,
   options: {
-    navigation: { icon: 'Document' },
+    id: 'noticias',
+    navigation: { name: 'Notícias', icon: 'Document' },
     listProperties: ['id', 'category', 'title', 'date', 'image'],
     filterProperties: ['category', 'title', 'date'],
-    editProperties: ['category', 'image', 'date', 'title'],
-    showProperties: ['id', 'category', 'image', 'date', 'title'],
+    editProperties: ['category', 'image', 'date', 'title', 'description'],
+    showProperties: ['id', 'category', 'image', 'date', 'title', 'description'],
     properties: {
       category: {
-        availableValues: [
-          { value: 'Novidades', label: 'Novidades' },
-          { value: 'Eventos', label: 'Eventos' },
-          { value: 'Postos Petrobras', label: 'Postos Petrobras' },
-        ],
+        isVisible: { list: true, edit: true, show: true, filter: true },
       },
       image: {
         components: {
@@ -29,6 +26,9 @@ export const NoticiasResource: ResourceWithOptions = {
       },
       title: {
         type: 'string',
+      },
+      description: {
+        type: 'textarea',
       },
     },
   },

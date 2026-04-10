@@ -1,13 +1,14 @@
-# Home Banner Module
+# Home Banner Module (Pending/Inactive)
 
-This module manages the banners displayed on the landing page of the application.
+> [!NOTE]
+> This module is currently documented for future implementation but is **not active** in the current AdminJS configuration.
 
-## Features
+## Proposed Features
 - **Title**: Main call to action text.
 - **Subtitle**: Supporting text or secondary action.
 - **Image URL**: Background or foreground image for the banner.
 - **Action Link**: URL for the main button action.
 - **Colors**: Support for dynamic color palettes (as per UI configuration).
 
-## Usage
-Add, edit, or remove banners to change the primary focus of the application's homepage.
+## Future Usage
+Once activated, this module will allow dynamic management of the primary sliders and call-to-action blocks on the application homepage.
