@@ -28,11 +28,11 @@ The Regulamento functionality leverages the dual-mode `FAQBuilder.tsx` component
     *   **Multi-Section Support**: There is no limit to the number of sections. Each click generates a fresh, independent block of fields.
 *   **Repeated Headers**: In this mode, the "Shared Title" logic is disabled. Every section maintains its own title to represent different articles or clauses of the regulation.
 
-### 2. Field Structure
-The data structure for Regulamento entries is optimized for readability:
-- **Title**: Used as the Article or Section name.
-- **Description**: Used for the text content of the regulation.
-- **Note**: The Subtitle field is hidden in this mode to maintain the formal document structure.
+---
+
+## ⚙️ Recent Configuration Updates
+- **Payload Stability**: The NestJS/Express payload limit has been increased to **50MB** in `main.ts`. This ensures that pages with a very large number of FAQ items or detailed legal text can be saved successfully without generic "Validation Errors."
+- **Component Stability**: Refined the `FAQBuilder` hook logic to ensure smooth state management when navigating between different page types.
 
 ---
 

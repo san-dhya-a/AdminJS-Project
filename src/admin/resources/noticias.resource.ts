@@ -6,19 +6,21 @@ export const NoticiasResource: ResourceWithOptions = {
   resource: Noticias,
   options: {
     id: 'Noticias',
-    navigation: { name: 'Notícias', icon: 'Document' },
-    listProperties: ['id', 'category', 'title', 'date', 'image'],
-    editProperties: ['category', 'title', 'date', 'image', 'description'],
-    showProperties: ['id', 'category', 'image', 'date', 'title', 'description'],
+    navigation: { name: 'Notícias', icon: 'Globe' },
+    listProperties: ['id', 'categories', 'title', 'date', 'image'],
+    editProperties: ['categories', 'title', 'date', 'image', 'description'],
+    showProperties: ['id', 'categories', 'image', 'date', 'title', 'description'],
     properties: {
-      category: {
-        type: 'string', // Stored as a string in the database
-        availableValues: [
-          { value: 'Novidades', label: 'Novidades' },
-          { value: 'Eventos', label: 'Eventos' },
-          { value: 'Postos Petrobras', label: 'Postos Petrobras' },
-        ],
+      categories: {
+        type: 'reference', // Correct for relational mapping
+        reference: 'NoticiasCategory',
         isRequired: false,
+        components: {
+          list: Components.CategoryMultiSelect,
+          edit: Components.CategoryMultiSelect,
+          show: Components.CategoryMultiSelect,
+        },
+        isVisible: { list: true, edit: true, show: true, filter: true },
       },
       image: {
         type: 'textarea',

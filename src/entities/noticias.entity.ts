@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, JoinTable } from 'typeorm';
+import { NoticiasCategory } from './noticias-category.entity.js';
 
 @Entity({ name: 'noticias' })
 export class Noticias extends BaseEntity {
@@ -8,8 +9,13 @@ export class Noticias extends BaseEntity {
   @Column({ type: 'varchar', length: 255, nullable: true })
   title: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
-  category: string;
+  @ManyToMany(() => NoticiasCategory)
+  @JoinTable({
+    name: 'noticias_to_categories',
+    joinColumn: { name: 'noticiasId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'categoryId', referencedColumnName: 'id' },
+  })
+  categories: NoticiasCategory[];
 
   @Column({ type: 'longtext', nullable: true })
   image: string;

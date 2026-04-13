@@ -26,7 +26,7 @@ The FAQ feature is powered by a custom React component (`FAQBuilder.tsx`) that m
 *   **"Add FAQ Items" Button**: 
     *   **First Click**: Automatically shows the **Title**, **Subtitle**, and **Description** fields (index 0).
     *   **Subsequent Clicks**: Adds only **Subtitle** and **Description** fields.
-*   **"Add Title" Button** (New):
+*   **"Add Title" Button**:
     *   Adds a comprehensive entry containing **Title**, **Subtitle**, and **Description**.
     *   This allows for multiple titled groups within a single FAQ section.
 
@@ -36,8 +36,11 @@ Each entry in the FAQ list is handled as a React object:
 - **Subtitle**: Used as the individual Question.
 - **Description**: Used as the detailed Answer.
 
-### 3. Unified Section UI
-All entries are kept inside the same visual section.
+---
+
+## ⚙️ Recent Configuration Updates
+- **Payload Stability**: The NestJS/Express payload limit has been increased to **50MB** in `main.ts`. This ensures that pages with a very large number of FAQ items or detailed legal text can be saved successfully without generic "Validation Errors."
+- **Component Stability**: Refined the `FAQBuilder` hook logic to ensure smooth state management when navigating between different page types.
 
 ---
 

@@ -1,23 +1,34 @@
 # Notícias Module
 
-The Notícias module manages the application's card-based feed, blog posts, and announcements. It features a dynamic relational structure for categorizing content.
+The Notícias module manages the application's card-based feed, blog posts, and announcements. It features a professional multi-tag selection system and high-performance image handling.
 
 ## Key Features
-- **Dynamic Categories**: Uses a relational `ManyToOne` mapping to the **Notícias Category** section.
-- **Card-Ready Data**: Fields are optimized for frontend grid layouts (Title, Image, Date, Category).
+- **Multi-Tag Categories**: Uses a professional **ManyToMany** relationship, allowing you to select multiple categories (e.g., Novidades + Eventos) for a single news item.
+- **Professional UI**: Features a tag-style dropdown (`CategoryMultiSelect`) that displays active selections as clean tags.
+- **Large Image Support**: Database configured with **LONGTEXT** to support high-resolution Base64 images without validation errors.
 - **Consolidated Sidebar**: Both news lists and category management are grouped under the **Notícias** folder for a clean workspace.
 
 ## Dashboard Structure
 - 📁 **Notícias** (Group)
   - 📄 **Ver Todas**: The list of all news cards/articles.
-  - 📄 **Categorias**: Dynamic management of category names (e.g., Novidades, Eventos).
+  - 📄 **Categorias**: Management of category names (e.g., Novidades, Eventos, Postos Petrobras).
 
 ## Fields Documentation
-- **Title**: The headline of the news card.
-- **Description**: The full text content (supports textarea).
-- **Image**: Supported through the high-performance Base64 uploader.
+- **Title**: The headline of the news card. Supports up to 255 characters.
+- **Categories**: A multi-select dropdown fetched from the **Categorias** resource.
+- **Image**: Supported through the high-performance Base64 uploader (`ImageUploader`).
 - **Date**: The publication or event date.
-- **Category**: A dynamic dropdown selection fetched from the **Categorias** resource.
+- **Description**: The full text content (supports textarea).
 
-## Relationship Implementation
-The `Noticias` entity holds a `categoryId` foreign key, which links to the `NoticiasCategory` entity. AdminJS automatically renders this as a searchable dropdown in the edit view.     
+## Implementation & Configuration
+### Database
+- **Table**: `noticias`
+- **Relationship**: Mapped via `noticias_to_categories` join table.
+- **Image Type**: `LONGTEXT` (to prevent payload/size validation failures).
+
+### UI Components
+- **CategoryMultiSelect**: Custom React component for handling multiple tag selections and displaying them correctly in the list/show views.
+- **ImageUploader**: Integrated at the list level to show thumbnails in the database table.
+
+### Stability
+- **Payload Limit**: Server-side limits increased to **50MB** in `main.ts` to ensuring smooth saving of larger content and images.

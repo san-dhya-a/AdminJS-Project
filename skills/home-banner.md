@@ -1,14 +1,20 @@
-# Home Banner Module (Pending/Inactive)
+# Home Banner Module
 
-> [!NOTE]
-> This module is currently documented for future implementation but is **not active** in the current AdminJS configuration.
+The Home Banner module allows dynamic management of the primary sliders and promotional images on the application homepage.
 
-## Proposed Features
-- **Title**: Main call to action text.
-- **Subtitle**: Supporting text or secondary action.
-- **Image URL**: Background or foreground image for the banner.
-- **Action Link**: URL for the main button action.
-- **Colors**: Support for dynamic color palettes (as per UI configuration).
+## Key Features
+- **Visual Management**: Uses the `ImageUploader` for professional banner selection and preview.
+- **Time-Sensitive Content**: Supports `startDate` and `endDate` to automatically control when banners are live on the site.
+- **Actionable Banners**: Integrated `link` field to redirect users upon clicking.
 
-## Future Usage
-Once activated, this module will allow dynamic management of the primary sliders and call-to-action blocks on the application homepage.
+## Fields Documentation
+- **Image**: High-resolution banner image (stored in Base64 `LONGTEXT`).
+- **Link**: The URL destination for the banner action.
+- **Start Date**: The date when the banner should begin appearing.
+- **End Date**: The date when the banner should stop appearing.
+
+## Implementation Details
+- **Database Table**: `home_banners`
+- **Resource ID**: `HomeBanner`
+- **Configuration**: Uses custom `ImageUploader` component and `displayName` labels for a more intuitive administration experience.
+- **Stability**: Integrated with the system-wide **50MB** payload limit to support large banner graphic uploads.
