@@ -5,15 +5,20 @@ import { Components } from '../component-loader.js';
 export const NoticiasResource: ResourceWithOptions = {
   resource: Noticias,
   options: {
-    id: 'noticias',
+    id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Document' },
-    listProperties: ['id', 'category', 'title', 'date', 'image'],
+    listProperties: ['category', 'title', 'date', 'image'],
     filterProperties: ['category', 'title', 'date'],
-    editProperties: ['category', 'image', 'date', 'title', 'description'],
+    editProperties: ['category', 'title', 'date', 'image', 'description'],
     showProperties: ['id', 'category', 'image', 'date', 'title', 'description'],
     properties: {
       category: {
+        type: 'reference',
+        reference: 'NoticiasCategory',
         isVisible: { list: true, edit: true, show: true, filter: true },
+      },
+      categoryId: {
+        isVisible: false,
       },
       image: {
         components: {

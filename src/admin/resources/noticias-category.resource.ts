@@ -4,7 +4,7 @@ import { NoticiasCategory } from '../../entities/noticias-category.entity.js';
 export const NoticiasCategoryResource: ResourceWithOptions = {
   resource: NoticiasCategory,
   options: {
-    id: 'noticias_category',
+    id: 'NoticiasCategory',
     navigation: { name: 'Notícias', icon: 'Folder' },
     listProperties: ['id', 'title'],
     showProperties: ['id', 'title'],

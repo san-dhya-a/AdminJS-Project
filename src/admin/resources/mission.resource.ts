@@ -5,7 +5,7 @@ import { Components } from '../component-loader.js';
 export const MissionResource: ResourceWithOptions = {
   resource: Mission,
   options: {
-    id: 'Missões',
+    id: 'Missions',
     navigation: { icon: 'Compass' },
     listProperties: ['id', 'title', 'rewardType', 'status', 'expireDate', 'publishDate'],
     editProperties: [

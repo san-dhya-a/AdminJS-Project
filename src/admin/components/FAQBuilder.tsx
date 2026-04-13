@@ -82,12 +82,12 @@ const FAQBuilder: React.FC<BasePropertyProps> = (props) => {
     updateContent({ ...data, items: newItems });
   };
 
+  const isFAQ = pageType === 'faq';
+  const hasItems = data.items && data.items.length > 0;
+
   if (!record.params.pageType) {
     return null;
   }
-
-  const isFAQ = pageType === 'faq';
-  const hasItems = data.items && data.items.length > 0;
 
   if (isShow) {
     return (

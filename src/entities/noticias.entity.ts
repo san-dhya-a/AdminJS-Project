@@ -6,6 +6,9 @@ export class Noticias extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
+  @Column({ nullable: true })
+  categoryId: number;
+
   @ManyToOne(() => NoticiasCategory, (category) => category.noticias, { nullable: true })
   @JoinColumn({ name: 'categoryId' })
   category: NoticiasCategory;
