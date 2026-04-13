@@ -5,9 +5,9 @@ import { Components } from '../component-loader.js';
 export const MissionResource: ResourceWithOptions = {
   resource: Mission,
   options: {
-    id: 'Missions',
+    id: 'Missoes',
     navigation: { icon: 'Compass' },
-    listProperties: ['id', 'title', 'rewardType', 'status', 'expireDate', 'publishDate'],
+    listProperties: ['id', 'status', 'title', 'rewardType', 'rewardValue', 'expireDate'],
     editProperties: [
       'title', 'description', 'image', 'rewardType', 'rewardValue', 
       'rewardLabel', 'buttonText', 'startDate', 'endDate', 
@@ -16,7 +16,7 @@ export const MissionResource: ResourceWithOptions = {
     showProperties: [
       'id', 'status', 'title', 'description', 'image', 'rewardType', 
       'rewardValue', 'rewardLabel', 'buttonText', 'startDate', 
-      'endDate', 'publishDate', 'expireDate'
+      'endDate', 'publishDate', 'expireDate', 'createdAt'
     ],
     properties: {
       image: {
@@ -43,9 +43,11 @@ export const MissionResource: ResourceWithOptions = {
       description: {
         type: 'textarea',
       },
-      publishDate: {
-        type: 'datetime',
-      },
+      startDate: { type: 'date' },
+      endDate: { type: 'date' },
+      publishDate: { type: 'date' },
+      expireDate: { type: 'date' },
+      createdAt: { isVisible: { list: false, show: true, edit: false, filter: true } },
     },
     actions: {
       list: {

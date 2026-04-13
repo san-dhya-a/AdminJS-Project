@@ -1,6 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from 'typeorm';
 
-@Entity({ name: 'missions' })
+@Entity({ name: 'missoes' })
 export class Mission extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
@@ -11,34 +11,33 @@ export class Mission extends BaseEntity {
   @Column({ type: 'text', nullable: true })
   description: string;
 
-  @Column({
-    type: 'enum',
-    enum: ['Diamantes', 'Points'], // The user might want Points too if they want English? But they specifically said "Diamantes / Pontos" earlier. I'll keep the values but change the technical label if needed. Actually, "Diamantes / Pontos" is fine.
-    default: 'Diamantes',
-  })
+  @Column({ type: 'longtext', nullable: true }) // Using longtext for Base64 image support
+  image: string;
+
+  @Column({ name: 'reward_type', type: 'varchar', length: 100, nullable: true })
   rewardType: string;
 
-  @Column({ type: 'varchar', length: 100, nullable: true })
+  @Column({ name: 'reward_value', type: 'varchar', length: 100, nullable: true })
   rewardValue: string;
 
-  @Column({ type: 'varchar', length: 255, nullable: true })
+  @Column({ name: 'reward_label', type: 'varchar', length: 100, nullable: true })
   rewardLabel: string;
 
-  @Column({ type: 'varchar', length: 100, default: 'Quero participar!' })
+  @Column({ name: 'button_text', type: 'varchar', length: 100, default: 'Quero participar!' })
   buttonText: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ name: 'start_date', type: 'date', nullable: true })
   startDate: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ name: 'end_date', type: 'date', nullable: true })
   endDate: string;
 
-  @Column({ type: 'datetime', nullable: true })
-  publishDate: Date;
+  @Column({ name: 'publish_date', type: 'date', nullable: true })
+  publishDate: string;
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ name: 'expire_date', type: 'date', nullable: true })
   expireDate: string;
 
-  @Column({ type: 'longtext', nullable: true })
-  image: string;
+  @CreateDateColumn({ name: 'created_at' })
+  createdAt: Date;
 }
