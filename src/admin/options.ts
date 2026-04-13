@@ -22,5 +22,4 @@ const options: AdminJSOptions = {
   ],
   databases: [],
 };
-
 export default options;
