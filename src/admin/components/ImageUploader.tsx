@@ -3,7 +3,7 @@ import { Box, Label, Input, DropZone, DropZoneProps, Button, Icon, Text } from '
 import { BasePropertyProps } from 'adminjs';
 
 const ImageUploader: React.FC<BasePropertyProps> = (props) => {
-  const { property, record, onChange } = props;
+  const { property, record, onChange, where } = props;
   const [preview, setPreview] = useState<string | null>(record.params[property.name] || null);
 
   const handleFileChange: DropZoneProps['onChange'] = (files) => {
@@ -24,6 +24,37 @@ const ImageUploader: React.FC<BasePropertyProps> = (props) => {
     onChange(property.name, '');
   };
 
+  // List View (Thumbnail)
+  if (where === 'list') {
+    const imgUrl = record.params[property.name];
+    if (imgUrl) {
+      return (
+        <img 
+          src={imgUrl} 
+          alt="Thumbnail" 
+          style={{ width: '40px', height: '40px', objectFit: 'cover', borderRadius: '4px', border: '1px solid #ddd' }} 
+        />
+      );
+    }
+    return <Text color="grey40">-</Text>;
+  }
+
+  // Show View
+  if (where === 'show') {
+     const imgUrl = record.params[property.name];
+     return (
+       <Box>
+         <Label>{property.label}</Label>
+         {imgUrl ? (
+           <img src={imgUrl} alt="Preview" style={{ maxWidth: '300px', borderRadius: '4px', border: '1px solid #ddd' }} />
+         ) : (
+           <Text color="grey40">No image uploaded</Text>
+         )}
+       </Box>
+     );
+  }
+
+  // Edit/Create View
   return (
     <Box mb="xl">
       <Label>{property.label}</Label>
@@ -40,7 +71,7 @@ const ImageUploader: React.FC<BasePropertyProps> = (props) => {
         <DropZone onChange={handleFileChange} validate={{ maxSize: 5000000, mimeTypes: ['image/png', 'image/jpeg', 'image/jpg', 'image/webp'] }} />
       )}
       <Text variant="sm" color="grey60" mt="xs">
-        Select an image to use as the card background. Base64 format will be stored in the database.
+        Select an image. Base64 format will be stored in the database.
       </Text>
     </Box>
   );

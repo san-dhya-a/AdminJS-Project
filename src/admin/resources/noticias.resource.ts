@@ -7,35 +7,39 @@ export const NoticiasResource: ResourceWithOptions = {
   options: {
     id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Document' },
-    listProperties: ['categories', 'title', 'date', 'image'],
-    filterProperties: ['categories', 'title', 'date'],
-    editProperties: ['categories', 'title', 'date', 'image', 'description'],
-    showProperties: ['id', 'categories', 'image', 'date', 'title', 'description'],
+    listProperties: ['id', 'category', 'title', 'date', 'image'],
+    editProperties: ['category', 'title', 'date', 'image', 'description'],
+    showProperties: ['id', 'category', 'image', 'date', 'title', 'description'],
     properties: {
-      categories: {
-        type: 'reference',
-        reference: 'NoticiasCategory',
-        components: {
-          list: Components.CategoryMultiSelect,
-          edit: Components.CategoryMultiSelect,
-          show: Components.CategoryMultiSelect,
-        },
-        isVisible: { list: true, edit: true, show: true, filter: true },
+      category: {
+        type: 'string', // Stored as a string in the database
+        availableValues: [
+          { value: 'Novidades', label: 'Novidades' },
+          { value: 'Eventos', label: 'Eventos' },
+          { value: 'Postos Petrobras', label: 'Postos Petrobras' },
+        ],
+        isRequired: false,
       },
       image: {
+        type: 'textarea',
+        isRequired: false,
         components: {
+          list: Components.ImageUploader,
           edit: Components.ImageUploader,
           show: Components.ImageUploader,
         },
       },
       date: {
         type: 'date',
+        isRequired: false,
       },
       title: {
         type: 'string',
+        isRequired: false,
       },
       description: {
         type: 'textarea',
+        isRequired: false,
       },
     },
   },

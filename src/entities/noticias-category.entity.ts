@@ -8,7 +8,4 @@ export class NoticiasCategory extends BaseEntity {
 
   @Column({ unique: true })
   title: string;
-
-  @ManyToMany(() => Noticias, (noticia) => noticia.categories)
-  noticias: Noticias[];
 }

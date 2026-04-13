@@ -11,6 +11,12 @@ async function bootstrap() {
   });
   await AppDataSource.initialize();
   const app = await NestFactory.create(AppModule);
+  
+  // Increase payload limits for Base64 images
+  const { json, urlencoded } = await import('express');
+  app.use(json({ limit: '50mb' }));
+  app.use(urlencoded({ extended: true, limit: '50mb' }));
+
   await app.listen(process.env.PORT ?? 3000);
 }
 bootstrap();

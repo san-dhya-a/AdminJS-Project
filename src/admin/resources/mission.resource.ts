@@ -20,7 +20,9 @@ export const MissionResource: ResourceWithOptions = {
     ],
     properties: {
       image: {
+        type: 'string',
         components: {
+          list: Components.ImageUploader,
           edit: Components.ImageUploader,
           show: Components.ImageUploader,
         },

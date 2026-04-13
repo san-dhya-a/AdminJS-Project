@@ -12,11 +12,13 @@ export const HomeBannerResource: ResourceWithOptions = {
     showProperties: ['id', 'image', 'link', 'startDate', 'endDate', 'createdAt'],
     properties: {
       image: {
+        type: 'string',
         components: {
+          list: Components.ImageUploader,
           edit: Components.ImageUploader,
           show: Components.ImageUploader,
         },
-      },
+      } as any,
       link: {
         type: 'string',
         displayName: 'Banner Link',
