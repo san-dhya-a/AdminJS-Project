@@ -7,19 +7,18 @@ export const NoticiasResource: ResourceWithOptions = {
   options: {
     id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Globe' },
-    listProperties: ['id', 'categories', 'title', 'date', 'image', 'image1'],
-    editProperties: ['categories', 'title', 'date', 'image', 'image1', 'description'],
-    showProperties: ['id', 'categories', 'image', 'image1', 'date', 'title', 'description'],
+    listProperties: ['id', 'category', 'title', 'date', 'image', 'image1'],
+    editProperties: ['category', 'title', 'date', 'image', 'image1', 'description'],
+    showProperties: ['id', 'category', 'image', 'image1', 'date', 'title', 'description'],
     properties: {
-      categories: {
-        type: 'string', // Changed to string to bypass reference validation issues during save
+      category: {
+        type: 'string',
+        availableValues: [
+          { value: 'Novidades', label: 'Novidades' },
+          { value: 'Eventos', label: 'Eventos' },
+          { value: 'Postos Petrobras', label: 'Postos Petrobras' },
+        ],
         isRequired: false,
-        components: {
-          list: Components.CategoryMultiSelect,
-          edit: Components.CategoryMultiSelect,
-          show: Components.CategoryMultiSelect,
-        },
-        isVisible: { list: true, edit: true, show: true, filter: true },
       },
       image: {
         type: 'textarea',
@@ -32,26 +31,16 @@ export const NoticiasResource: ResourceWithOptions = {
       },
       image1: {
         type: 'textarea',
-        displayName: 'Backend Image',
         isRequired: false,
         components: {
           list: Components.ImageUploader,
           edit: Components.ImageUploader,
           show: Components.ImageUploader,
         },
-      } as any,
-      date: {
-        type: 'date',
-        isRequired: false,
       },
-      title: {
-        type: 'string',
-        isRequired: false,
-      },
-      description: {
-        type: 'textarea',
-        isRequired: false,
-      },
+      title: { isRequired: false },
+      date: { type: 'date', isRequired: false },
+      description: { type: 'textarea', isRequired: false },
     },
   },
 };
