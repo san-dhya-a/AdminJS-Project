@@ -19,8 +19,10 @@ export const MissionResource: ResourceWithOptions = {
       'endDate', 'publishDate', 'expireDate', 'createdAt'
     ],
     properties: {
+      title: { isRequired: false },
       image: {
-        type: 'string',
+        type: 'textarea', // Support large Base64
+        isRequired: false,
         components: {
           list: Components.ImageUploader,
           edit: Components.ImageUploader,
@@ -41,15 +43,20 @@ export const MissionResource: ResourceWithOptions = {
           { value: 'Diamantes', label: 'Diamantes' },
           { value: 'Pontos', label: 'Pontos' },
         ],
+        isRequired: false,
       },
+      rewardValue: { isRequired: false },
+      rewardLabel: { isRequired: false },
+      buttonText: { isRequired: false },
       description: {
         type: 'textarea',
+        isRequired: false,
       },
-      startDate: { type: 'date' },
-      endDate: { type: 'date' },
-      publishDate: { type: 'date' },
-      expireDate: { type: 'date' },
-      createdAt: { isVisible: { list: false, show: true, edit: false, filter: true } },
+      startDate: { type: 'date', isRequired: false },
+      endDate: { type: 'date', isRequired: false },
+      publishDate: { type: 'date', isRequired: false },
+      expireDate: { type: 'date', isRequired: false },
+      createdAt: { isRequired: false, isVisible: { list: false, show: true, edit: false, filter: true } },
     },
     actions: {
       list: {

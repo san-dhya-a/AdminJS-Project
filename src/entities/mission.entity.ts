@@ -5,7 +5,7 @@ export class Mission extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ type: 'varchar', length: 255 })
+  @Column({ type: 'varchar', length: 255, nullable: true })
   title: string;
 
   @Column({ type: 'text', nullable: true })
@@ -23,7 +23,7 @@ export class Mission extends BaseEntity {
   @Column({ name: 'reward_label', type: 'varchar', length: 100, nullable: true })
   rewardLabel: string;
 
-  @Column({ name: 'button_text', type: 'varchar', length: 100, default: 'Quero participar!' })
+  @Column({ name: 'button_text', type: 'varchar', length: 100, default: 'Quero participar!', nullable: true })
   buttonText: string;
 
   @Column({ name: 'start_date', type: 'date', nullable: true })
