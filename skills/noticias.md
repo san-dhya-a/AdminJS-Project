@@ -16,7 +16,8 @@ The Notícias module manages the application's card-based feed, blog posts, and 
 ## Fields Documentation
 - **Title**: The headline of the news card. Supports up to 255 characters.
 - **Categories**: A multi-select dropdown fetched from the **Categorias** resource.
-- **Image**: Supported through the high-performance Base64 uploader (`ImageUploader`).
+- **Main Image**: The primary graphic shown on the frontend card (`image`).
+- **Backend Image**: A secondary image for internal/admin reference (`image1`).
 - **Date**: The publication or event date.
 - **Description**: The full text content (supports textarea).
 

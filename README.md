@@ -24,10 +24,11 @@ This comprehensive document outlines the architecture, implementation, and featu
 
 ### 1. Notícias (News Management)
 Manages the application's card-based feed and blog announcements.
+- **Form Structure**: Features **Two Image Fields** (Main Image for frontend, Backend Image for admin reference).
 - **Multi-Tag System**: Uses a relational **ManyToMany** relationship for categories.
 - **UI Component**: `CategoryMultiSelect` provides a tag-based experience (e.g., *Novidades + Eventos*).
 - **Stability**: Fields are marked as optional to unblock rapid content drafting.
-- **Image Preview**: List view displays thumbnails directly in the data table.
+- **Image Preview**: List view displays thumbnails for both images directly in the data table.
 
 ### 2. Missões (Missions)
 Handles interactive tasks and user reward systems, synced with the `missoes` table.

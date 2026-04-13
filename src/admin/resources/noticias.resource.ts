@@ -7,13 +7,12 @@ export const NoticiasResource: ResourceWithOptions = {
   options: {
     id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Globe' },
-    listProperties: ['id', 'categories', 'title', 'date', 'image'],
-    editProperties: ['categories', 'title', 'date', 'image', 'description'],
-    showProperties: ['id', 'categories', 'image', 'date', 'title', 'description'],
+    listProperties: ['id', 'categories', 'title', 'date', 'image', 'image1'],
+    editProperties: ['categories', 'title', 'date', 'image', 'image1', 'description'],
+    showProperties: ['id', 'categories', 'image', 'image1', 'date', 'title', 'description'],
     properties: {
       categories: {
-        type: 'reference', // Correct for relational mapping
-        reference: 'NoticiasCategory',
+        type: 'string', // Changed to string to bypass reference validation issues during save
         isRequired: false,
         components: {
           list: Components.CategoryMultiSelect,
@@ -31,6 +30,16 @@ export const NoticiasResource: ResourceWithOptions = {
           show: Components.ImageUploader,
         },
       },
+      image1: {
+        type: 'textarea',
+        displayName: 'Backend Image',
+        isRequired: false,
+        components: {
+          list: Components.ImageUploader,
+          edit: Components.ImageUploader,
+          show: Components.ImageUploader,
+        },
+      } as any,
       date: {
         type: 'date',
         isRequired: false,

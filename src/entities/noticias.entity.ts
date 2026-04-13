@@ -20,6 +20,9 @@ export class Noticias extends BaseEntity {
   @Column({ type: 'longtext', nullable: true })
   image: string;
 
+  @Column({ type: 'longtext', nullable: true })
+  image1: string;
+
   @Column({ type: 'date', nullable: true })
   date: string;
 
