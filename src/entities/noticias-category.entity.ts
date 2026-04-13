@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany } from 'typeorm';
 import { Noticias } from './noticias.entity.js';
 
 @Entity({ name: 'noti_category' })
@@ -9,6 +9,6 @@ export class NoticiasCategory extends BaseEntity {
   @Column({ unique: true })
   title: string;
 
-  @OneToMany(() => Noticias, (noticia) => noticia.category)
+  @ManyToMany(() => Noticias, (noticia) => noticia.categories)
   noticias: Noticias[];
 }

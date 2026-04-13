@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToOne, JoinColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, ManyToMany, JoinTable } from 'typeorm';
 import { NoticiasCategory } from './noticias-category.entity.js';
 
 @Entity({ name: 'noticias' })
@@ -6,12 +6,13 @@ export class Noticias extends BaseEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: true })
-  categoryId: number;
-
-  @ManyToOne(() => NoticiasCategory, (category) => category.noticias, { nullable: true })
-  @JoinColumn({ name: 'categoryId' })
-  category: NoticiasCategory;
+  @ManyToMany(() => NoticiasCategory, (category) => category.noticias)
+  @JoinTable({
+    name: 'noticias_to_categories',
+    joinColumn: { name: 'noticiasId', referencedColumnName: 'id' },
+    inverseJoinColumn: { name: 'categoryId', referencedColumnName: 'id' },
+  })
+  categories: NoticiasCategory[];
 
   @Column({ type: 'longtext', nullable: true })
   image: string;

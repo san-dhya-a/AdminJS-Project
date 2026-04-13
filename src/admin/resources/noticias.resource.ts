@@ -7,18 +7,19 @@ export const NoticiasResource: ResourceWithOptions = {
   options: {
     id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Document' },
-    listProperties: ['category', 'title', 'date', 'image'],
-    filterProperties: ['category', 'title', 'date'],
-    editProperties: ['category', 'title', 'date', 'image', 'description'],
-    showProperties: ['id', 'category', 'image', 'date', 'title', 'description'],
+    listProperties: ['categories', 'title', 'date', 'image'],
+    filterProperties: ['categories', 'title', 'date'],
+    editProperties: ['categories', 'title', 'date', 'image', 'description'],
+    showProperties: ['id', 'categories', 'image', 'date', 'title', 'description'],
     properties: {
-      category: {
+      categories: {
         type: 'reference',
         reference: 'NoticiasCategory',
+        components: {
+          edit: Components.CategoryMultiSelect,
+          show: Components.CategoryMultiSelect,
+        },
         isVisible: { list: true, edit: true, show: true, filter: true },
-      },
-      categoryId: {
-        isVisible: false,
       },
       image: {
         components: {
