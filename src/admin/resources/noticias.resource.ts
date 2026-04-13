@@ -7,18 +7,19 @@ export const NoticiasResource: ResourceWithOptions = {
   options: {
     id: 'Noticias',
     navigation: { name: 'Notícias', icon: 'Globe' },
-    listProperties: ['id', 'category', 'title', 'date', 'image', 'image1'],
-    editProperties: ['category', 'title', 'date', 'image', 'image1', 'description'],
-    showProperties: ['id', 'category', 'image', 'image1', 'date', 'title', 'description'],
+    listProperties: ['id', 'categories', 'title', 'date', 'image', 'image1'],
+    editProperties: ['categories', 'title', 'date', 'image', 'image1', 'description'],
+    showProperties: ['id', 'categories', 'image', 'image1', 'date', 'title', 'description'],
     properties: {
-      category: {
-        type: 'string',
-        availableValues: [
-          { value: 'Novidades', label: 'Novidades' },
-          { value: 'Eventos', label: 'Eventos' },
-          { value: 'Postos Petrobras', label: 'Postos Petrobras' },
-        ],
+      categories: {
+        type: 'string', // Use string type to bypass TypeORM reference validation for custom components
         isRequired: false,
+        components: {
+          list: Components.CategoryMultiSelect,
+          edit: Components.CategoryMultiSelect,
+          show: Components.CategoryMultiSelect,
+        },
+        isVisible: { list: true, edit: true, show: true, filter: true },
       },
       image: {
         type: 'textarea',
