@@ -16,6 +16,7 @@ export const NoticiasResource: ResourceWithOptions = {
         type: 'reference',
         reference: 'NoticiasCategory',
         components: {
+          list: Components.CategoryMultiSelect,
           edit: Components.CategoryMultiSelect,
           show: Components.CategoryMultiSelect,
         },
