@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, CreateDateColumn, OneToMany, Relation } from 'typeorm';
+import { UserHasRoles } from './user-has-roles.entity.js';
 
 @Entity({ name: 'user' })
 export class User extends BaseEntity {
@@ -22,4 +23,7 @@ export class User extends BaseEntity {
 
   @Column({ default: 'active' })
   status: string;
+
+  @OneToMany(() => UserHasRoles, (userHasRoles) => userHasRoles.user)
+  userHasRoles: Relation<UserHasRoles>[];
 }

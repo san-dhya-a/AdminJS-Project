@@ -5,7 +5,8 @@ import { User } from '../../entities/user.entity.js';
 export const UserResource: ResourceWithOptions = {
   resource: User,
   options: {
-    navigation: { icon: 'User' },
+    id: 'User',
+    navigation: { name: 'User Management', icon: 'User' },
     listProperties: ['id', 'name', 'email', 'phone', 'role', 'status'],
     actions: {
       new: {
