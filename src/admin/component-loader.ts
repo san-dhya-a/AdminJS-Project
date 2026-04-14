@@ -6,6 +6,7 @@ export const Components = {
   FAQBuilder: componentLoader.add('FAQBuilder', './components/FAQBuilder.tsx'),
   ImageUploader: componentLoader.add('ImageUploader', './components/ImageUploader.tsx'),
   CategoryMultiSelect: componentLoader.add('CategoryMultiSelect', './components/CategoryMultiSelect.tsx'),
+  RoleList: componentLoader.add('RoleList', './components/role-list.tsx'),
 };
 
 export default componentLoader;

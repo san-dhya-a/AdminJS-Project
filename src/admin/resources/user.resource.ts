@@ -1,6 +1,7 @@
 import { ResourceWithOptions } from 'adminjs';
 import bcrypt from 'bcryptjs';
 import { User } from '../../entities/user.entity.js';
+import { Components } from '../component-loader.js';
 
 export const UserResource: ResourceWithOptions = {
   resource: User,
@@ -9,6 +10,17 @@ export const UserResource: ResourceWithOptions = {
     navigation: { name: 'User Management', icon: 'User' },
     listProperties: ['id', 'name', 'email', 'phone', 'roles', 'status'],
     actions: {
+      list: {
+        after: async (response) => {
+          if (response.records) {
+            response.records.forEach((record) => {
+              const roles = (record as any).roles || [];
+              record.params.roleNames = roles.map((r: any) => r.name).filter(Boolean);
+            });
+          }
+          return response;
+        },
+      },
       new: {
         before: async (request) => {
           if (request.payload?.password) {
@@ -19,6 +31,8 @@ export const UserResource: ResourceWithOptions = {
         after: async (response) => {
           if (response.record?.params) {
             response.record.params.password = '';
+            const roles = (response.record as any).roles || [];
+            response.record.params.roleNames = roles.map((r: any) => r.name).filter(Boolean);
           }
           return response;
         },
@@ -35,6 +49,8 @@ export const UserResource: ResourceWithOptions = {
         after: async (response) => {
           if (response.record?.params) {
             response.record.params.password = '';
+            const roles = (response.record as any).roles || [];
+            response.record.params.roleNames = roles.map((r: any) => r.name).filter(Boolean);
           }
           return response;
         },
@@ -43,6 +59,8 @@ export const UserResource: ResourceWithOptions = {
         after: async (response) => {
           if (response.record?.params) {
             response.record.params.password = '';
+            const roles = (response.record as any).roles || [];
+            response.record.params.roleNames = roles.map((r: any) => r.name).filter(Boolean);
           }
           return response;
         },
@@ -74,6 +92,10 @@ export const UserResource: ResourceWithOptions = {
       roles: {
         reference: 'Role',
         isVisible: { list: true, edit: true, filter: true, show: true },
+        components: {
+          list: Components.RoleList,
+          show: Components.RoleList,
+        },
       },
     },
   },

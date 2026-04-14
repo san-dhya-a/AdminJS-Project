@@ -22,7 +22,7 @@ export class User extends BaseEntity {
   @Column({ default: 'active' })
   status: string;
 
-  @ManyToMany(() => Role, (role) => role.users)
+  @ManyToMany(() => Role, (role) => role.users, { eager: true })
   @JoinTable({
     name: 'user_has_roles',
     joinColumn: { name: 'user_id', referencedColumnName: 'id' },
