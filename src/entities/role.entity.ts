@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, Relation } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BaseEntity, OneToMany, Relation, ManyToMany } from 'typeorm';
 import { UserHasRoles } from './user-has-roles.entity.js';
+import { User } from './user.entity.js';
 
 @Entity({ name: 'roles' })
 export class Role extends BaseEntity {
@@ -9,6 +10,6 @@ export class Role extends BaseEntity {
   @Column({ type: 'varchar', length: 255 })
   name: string;
 
-  @OneToMany(() => UserHasRoles, (userHasRoles) => userHasRoles.role)
-  userHasRoles: Relation<UserHasRoles>[];
+  @ManyToMany(() => User, (user) => user.roles)
+  users: Relation<User>[];
 }

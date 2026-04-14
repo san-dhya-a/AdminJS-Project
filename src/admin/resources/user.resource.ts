@@ -7,7 +7,7 @@ export const UserResource: ResourceWithOptions = {
   options: {
     id: 'User',
     navigation: { name: 'User Management', icon: 'User' },
-    listProperties: ['id', 'name', 'email', 'phone', 'role', 'status'],
+    listProperties: ['id', 'name', 'email', 'phone', 'roles', 'status'],
     actions: {
       new: {
         before: async (request) => {
@@ -70,6 +70,10 @@ export const UserResource: ResourceWithOptions = {
       },
       id: {
         isVisible: { show: false, list: true, edit: false, filter: true },
+      },
+      roles: {
+        reference: 'Role',
+        isVisible: { list: true, edit: true, filter: true, show: true },
       },
     },
   },
