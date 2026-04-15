@@ -46,9 +46,9 @@ import { PageModule } from './modules/page/page.module.js';
             cookieName: 'adminjs',
           },
           sessionOptions: {
-            resave: true,
-            saveUninitialized: true,
-            secret: process.env.COOKIE_SECRET,
+            resave: false,
+            saveUninitialized: false,
+            secret: process.env.COOKIE_SECRET || 'supersecret',
           },
         };
       },
@@ -57,4 +57,4 @@ import { PageModule } from './modules/page/page.module.js';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }

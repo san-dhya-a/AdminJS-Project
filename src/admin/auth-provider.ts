@@ -12,12 +12,12 @@ const provider = new DefaultAuthProvider({
     // 2. If user exists, check password
     if (user && user.password) {
       const isPasswordValid = await bcrypt.compare(password, user.password);
-      
+
       if (isPasswordValid) {
         return {
+          id: user.id.toString(),
           email: user.email,
           title: user.name || user.email,
-          avatarUrl: null, // You can add avatarUrl if available
         };
       }
     }
