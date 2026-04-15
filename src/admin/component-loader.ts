@@ -7,6 +7,7 @@ export const Components = {
   ImageUploader: componentLoader.add('ImageUploader', './components/ImageUploader.tsx'),
   CategoryMultiSelect: componentLoader.add('CategoryMultiSelect', './components/CategoryMultiSelect.tsx'),
   RoleList: componentLoader.add('RoleList', './components/role-list.tsx'),
+  AuthenticationBackgroundComponent: componentLoader.override('AuthenticationBackgroundComponent', './components/AuthenticationBackground.tsx'),
 };
 
 export default componentLoader;

@@ -2,12 +2,9 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AdminModule } from '@adminjs/nestjs';
 import { ConfigModule } from '@nestjs/config';
-import AdminJS from 'adminjs';
-import * as AdminJSTypeORM from '@adminjs/typeorm';
 
 import { AppController } from './app.controller.js';
 import { AppService } from './app.service.js';
-import provider from './admin/auth-provider.js';
 import options from './admin/options.js';
 import { User } from './entities/user.entity.js';
 import { Contact } from './entities/contact.entity.js';
@@ -19,6 +16,9 @@ import { HomeBanner } from './entities/home-banner.entity.js';
 import { Role } from './entities/role.entity.js';
 import { UserHasRoles } from './entities/user-has-roles.entity.js';
 import { PageModule } from './modules/page/page.module.js';
+import { UserModule } from './modules/user/user.module.js';
+import { UserService } from './modules/user/user.service.js';
+import { UserAuthProvider } from './modules/user/admin/user-auth.provider.js';
 
 @Module({
   imports: [
@@ -26,6 +26,7 @@ import { PageModule } from './modules/page/page.module.js';
       envFilePath: '.env',
     }),
     PageModule,
+    UserModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST || 'localhost',
@@ -37,7 +38,10 @@ import { PageModule } from './modules/page/page.module.js';
       synchronize: false,
     }),
     AdminModule.createAdminAsync({
-      useFactory: async () => {
+      imports: [UserModule],
+      inject: [UserService],
+      useFactory: async (userService: UserService) => {
+        const provider = new UserAuthProvider(userService);
         return {
           adminJsOptions: options,
           auth: {
