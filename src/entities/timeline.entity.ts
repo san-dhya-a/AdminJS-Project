@@ -15,8 +15,8 @@ export class Timeline extends BaseEntity {
   @Column({ type: 'longtext', nullable: true })
   image: string;
 
-  @Column({ default: false })
-  pin: boolean;
+  @Column({ type: 'text', nullable: true })
+  pin: string;
 
   @Column({ nullable: true })
   user_id: number;

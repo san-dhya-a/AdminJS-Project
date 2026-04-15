@@ -11,12 +11,11 @@ export class TimelineService {
   ) {}
 
   async findAll(): Promise<Timeline[]> {
-    return this.timelineRepository.find({
-      order: {
-        pin: 'DESC',
-        created_at: 'DESC',
-      },
-    });
+    return this.timelineRepository
+      .createQueryBuilder('timeline')
+      .orderBy('CASE WHEN timeline.pin IS NOT NULL AND timeline.pin != "" THEN 1 ELSE 0 END', 'DESC')
+      .addOrderBy('timeline.created_at', 'DESC')
+      .getMany();
   }
 
   async create(data: Partial<Timeline>): Promise<Timeline> {

@@ -61,7 +61,7 @@ export const TimelineResource = {
       },
 
       pin: {
-        type: 'boolean',
+        type: 'textarea',
       },
 
       user_id: {
