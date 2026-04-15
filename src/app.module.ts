@@ -19,6 +19,8 @@ import { HomeBanner } from './entities/home-banner.entity.js';
 import { Role } from './entities/role.entity.js';
 import { UserHasRoles } from './entities/user-has-roles.entity.js';
 import { PageModule } from './modules/page/page.module.js';
+import { Timeline } from './entities/timeline.entity.js';
+import { TimelineModule } from './modules/timeline/timeline.module.js';
 
 @Module({
   imports: [
@@ -26,6 +28,7 @@ import { PageModule } from './modules/page/page.module.js';
       envFilePath: '.env',
     }),
     PageModule,
+    TimelineModule,
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DATABASE_HOST || 'localhost',
@@ -33,7 +36,7 @@ import { PageModule } from './modules/page/page.module.js';
       username: process.env.DATABASE_USER || 'root',
       password: process.env.DATABASE_PASSWORD || 'mareeswari',
       database: process.env.DATABASE_NAME || 'Login_system',
-      entities: [User, Contact, Page, Noticias, NoticiasCategory, Mission, HomeBanner, Role, UserHasRoles],
+      entities: [User, Contact, Page, Noticias, NoticiasCategory, Mission, HomeBanner, Role, UserHasRoles, Timeline],
       synchronize: false,
     }),
     AdminModule.createAdminAsync({

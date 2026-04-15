@@ -8,7 +8,7 @@ import { NoticiasCategoryResource } from './resources/noticias-category.resource
 import { MissionResource } from './resources/mission.resource.js';
 import { HomeBannerResource } from './resources/home-banner.resource.js';
 import { RoleResource } from './resources/role.resource.js';
-
+import { TimelineResource } from './resources/timeline.resource.js';
 
 const options: AdminJSOptions = {
   componentLoader,
@@ -22,6 +22,7 @@ const options: AdminJSOptions = {
     MissionResource,
     HomeBannerResource,
     RoleResource,
+    TimelineResource,
   ],
   databases: [],
 };
